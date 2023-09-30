@@ -1,4 +1,5 @@
 import {useState} from 'react'
+import axios from 'axios';
 import BookCreate from './components/BookCreate';
 import BookList from './components/BookList';
 
@@ -12,7 +13,7 @@ function App() {
         const updatedBooks = books.map((book) => {
             if (book.id === id) {
                 return { ...book, title: newTitle };
-            }
+            } 
 
             return book;
         });
@@ -33,12 +34,17 @@ function App() {
 
 
     // it work like event handler
-    const createBook = (title) => {
+    const createBook = async (title) => {
         
-        // creating the new books
-        const updatedBooks = [...books,{id: Math.round(Math.random() * 9999), title: title}];
+        const response = await axios.post('http://localhost:3001/books' , {
+            title: title
+        })
+
+
+            // creating the new books
+        const updatedBooks = [...books,response.data];
         
-        // here we are updat   ing the state
+            // here we are updat   ing the state
         setBooks(updatedBooks)
     }
     return ( 
@@ -50,5 +56,4 @@ function App() {
                 </div>
             )
     }    
-
-export default App; 
+    export default App; 
