@@ -38,7 +38,9 @@ function App() {
         
         const response = await axios.post('http://localhost:3001/books' , {
             title: title
+
         })
+        console.log(response);
 
 
             // creating the new books
